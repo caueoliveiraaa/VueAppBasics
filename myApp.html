@@ -19,15 +19,22 @@
             <a class="navbar-brand" href="#">VueApp</a>
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                 <!-- Using the v-for directive to loop through the links -->
-                <li v-for="link in links" class="nav-item">
-                    <a class="nav-link" aria-current="page" href="#">{{link}}</a>
+                <li v-for="(link, index) in links" class="nav-item" key="index">
+                    <!-- Just ":" is the same as "v-bind:" -->
+                    <a
+                        class="nav-link"
+                        aria-current="page"
+                        :href="link.url"
+                        :title="`This link goes to the ${link.text} page`"
+                    >{{link.text}}</a>
                 </li>
             </ul>
         </div>
     </nav>
     
-    <!-- Containers are the most basic layout element in Bootstrap and are required when using our default grid system. -->
     <div id="contentApp" class="container">
+        <!-- Containers are the most basic layout element in Bootstrap and
+        are required when using our default grid system. -->
         <h1>{{ pageTitle }}</h1>
         <h2>{{ content }}</h2>
     </div>
@@ -35,7 +42,7 @@
     <script>
         // Creating an app and mounting it via a CSS selector
         Vue.createApp(
-            // Options as objetcs to send communicate with templates:
+            // Options as objetcs to communicate with templates:
             {
                 // Data method to send data to HTML templates
                 data() {
@@ -52,7 +59,11 @@
             {
                 data() {
                     return {
-                        links: ['Home', 'About', 'Contact']
+                        links: [
+                            {text: 'Home', url: 'myApp.html'},
+                            {text: 'About', url: 'about.html'},
+                            {text: 'Contact', url: 'contact.html'}
+                        ]
                     }
                 }
             }
